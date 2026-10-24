@@ -1,0 +1,228 @@
+/* ============================================================
+   Navbar — 赛博朋克潮流风格
+   深色玻璃底 + 霓虹荧光绿 Logo + 胶囊按钮 + 下划线 hover
+   ============================================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: all 0.5s var(--ease-out);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: navbarIn 0.8s 0.1s var(--ease-out) forwards;
+}
+
+@keyframes navbarIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar--scrolled {
+  padding: 14px 0;
+  background: rgba(10, 8, 18, 0.72);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* Logo — 胶囊形，荧光绿底深色字 */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.navbar__logo-mark {
+  height: 36px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c2ff3d;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: #0a0812;
+  transition: all var(--dur-normal) var(--ease-out);
+  box-shadow: 0 0 16px rgba(194, 255, 61, 0.3);
+}
+
+.navbar__logo:hover .navbar__logo-mark {
+  transform: scale(1.05);
+  box-shadow: 0 0 28px rgba(194, 255, 61, 0.5), 0 0 60px rgba(194, 255, 61, 0.2);
+}
+
+.navbar__logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.navbar__logo-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.navbar__logo-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+/* Links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.navbar__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease-out);
+  position: relative;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-secondary), var(--accent-sky));
+  box-shadow: 0 0 10px var(--accent-secondary);
+  transform: translateX(-50%);
+  transition: width var(--dur-normal) var(--ease-out);
+  border-radius: 2px;
+}
+
+.navbar__link:hover {
+  color: var(--text-primary);
+}
+
+.navbar__link:hover::after {
+  width: 100%;
+}
+
+.navbar__link-cn {
+  font-weight: 500;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.navbar__link-en {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.navbar__link:hover .navbar__link-en {
+  color: var(--accent-secondary);
+  text-shadow: 0 0 8px rgba(255, 60, 122, 0.5);
+}
+
+/* CTA — 霓虹品红胶囊按钮 */
+.navbar__cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid var(--accent-secondary);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all var(--dur-normal) var(--ease-out);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-violet));
+  opacity: 0;
+  transition: opacity var(--dur-normal) var(--ease-out);
+  z-index: -1;
+}
+
+.navbar__cta:hover {
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 60, 122, 0.4), 0 0 0 1px rgba(255, 60, 122, 0.3);
+}
+
+.navbar__cta:hover::before {
+  opacity: 1;
+}
+
+.navbar__cta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 8px var(--accent-secondary);
+  transition: all var(--dur-normal) var(--ease-out);
+}
+
+.navbar__cta:hover .navbar__cta-dot {
+  background: #fff;
+  box-shadow: 0 0 12px #fff;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .navbar__links { display: none; }
+  .navbar__logo-sub { display: none; }
+}
+
+/* 尊重 reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .navbar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

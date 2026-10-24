@@ -1,0 +1,146 @@
+/* ============================================================
+   滚动入场动画 — 全站通用 reveal 样式
+   配合 useReveal hook 使用，元素加 .reveal + 进入视口加 .is-revealed
+   ============================================================ */
+
+/* 基础 reveal 容器 */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 变体：从上方入场 */
+.reveal--up {
+  transform: translateY(60px);
+}
+
+.reveal--up.is-revealed {
+  transform: translateY(0);
+}
+
+/* 变体：从下方入场（默认，同 .reveal） */
+.reveal--down {
+  transform: translateY(-40px);
+}
+
+.reveal--down.is-revealed {
+  transform: translateY(0);
+}
+
+/* 变体：缩放进场 */
+.reveal--scale {
+  transform: scale(0.94);
+}
+
+.reveal--scale.is-revealed {
+  transform: scale(1);
+}
+
+/* 变体：左侧入场 */
+.reveal--left {
+  transform: translateX(-40px);
+}
+
+.reveal--left.is-revealed {
+  transform: translateX(0);
+}
+
+/* 变体：右侧入场 */
+.reveal--right {
+  transform: translateX(40px);
+}
+
+.reveal--right.is-revealed {
+  transform: translateX(0);
+}
+
+/* 变体：文字遮罩 reveal-up（逐行文字） */
+.reveal-text {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-text > .reveal-text-inner {
+  display: block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 1s var(--ease-out);
+}
+
+.reveal-text.is-revealed > .reveal-text-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger 子元素依次入场：通过 --stagger-delay 设置延迟 */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+  transition-delay: var(--stagger-delay, 0s);
+}
+
+.reveal-stagger.is-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 图片 reveal：裁剪进入效果 */
+.reveal-img {
+  overflow: hidden;
+}
+
+.reveal-img img {
+  transform: scale(1.1);
+  opacity: 0;
+  transition:
+    opacity 1s var(--ease-out),
+    transform 1.4s var(--ease-out);
+  transition-delay: 0.1s;
+}
+
+.reveal-img.is-revealed img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 章节标题专属：英文大标题缩放进场 */
+.reveal-heading {
+  opacity: 0;
+  transform: scale(0.96) translateY(20px);
+  transition:
+    opacity 1s var(--ease-out),
+    transform 1.2s var(--ease-out);
+  transform-origin: left center;
+}
+
+.reveal-heading.is-revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-text > .reveal-text-inner,
+  .reveal-stagger > *,
+  .reveal-img img,
+  .reveal-heading {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

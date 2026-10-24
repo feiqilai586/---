@@ -1,0 +1,494 @@
+/* ============================================================
+   Advantages — 赛博朋克潮流风格
+   深色玻璃卡片 + 霓虹边框 + 3D Tilt 悬停
+   ============================================================ */
+
+.advantages {
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景装饰 */
+.advantages__bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.advantages__grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 20%, transparent 100%);
+}
+
+.advantages__bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+.advantages__bg-glow--1 {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  left: -100px;
+  background: radial-gradient(circle, rgba(255, 60, 122, 0.4) 0%, transparent 70%);
+  animation: glowFloat1 8s ease-in-out infinite;
+}
+
+.advantages__bg-glow--2 {
+  width: 500px;
+  height: 500px;
+  bottom: 5%;
+  right: -150px;
+  background: radial-gradient(circle, rgba(60, 180, 255, 0.3) 0%, transparent 70%);
+  animation: glowFloat2 10s ease-in-out infinite;
+}
+
+.advantages__bg-glow--3 {
+  width: 350px;
+  height: 350px;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(194, 255, 61, 0.2) 0%, transparent 70%);
+  animation: glowFloat3 12s ease-in-out infinite;
+}
+
+@keyframes glowFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.1); }
+}
+
+@keyframes glowFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.15); }
+}
+
+@keyframes glowFloat3 {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.2; }
+  50% { transform: translateX(-50%) translateY(-20px) scale(1.2); opacity: 0.35; }
+}
+
+.advantages .container {
+  position: relative;
+  z-index: 1;
+}
+
+.advantages__header {
+  margin-bottom: 100px;
+}
+
+.advantages__header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 60px;
+}
+
+.advantages__header .section-heading {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.advantages__subtitle {
+  max-width: 420px;
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* 卡片网格 */
+.advantages__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* 能力卡片 — 赛博朋克风格：深色玻璃 + 霓虹边 */
+.adv-card {
+  position: relative;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 400px;
+  transition:
+    border-color 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    background-color 0.25s ease-out;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* 背景渐变光斑 */
+.adv-card__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.25s ease-out;
+}
+
+.adv-card:hover .adv-card__glow {
+  opacity: 1;
+}
+
+/* 扫描线动画 */
+.adv-card__scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--card-accent, var(--accent-secondary)) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 0 10px var(--card-accent, var(--accent-secondary));
+}
+
+.adv-card:hover .adv-card__scanline {
+  opacity: 0.6;
+  animation: scanDown 2.5s ease-in-out infinite;
+}
+
+@keyframes scanDown {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.adv-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--card-accent, var(--accent-secondary)) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  z-index: 3;
+}
+
+.adv-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 60, 122, 0.06) 0%,
+    transparent 50%,
+    rgba(60, 180, 255, 0.06) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  pointer-events: none;
+}
+
+.adv-card:hover {
+  border-color: var(--card-accent, rgba(255, 60, 122, 0.4));
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--card-accent, rgba(255, 60, 122, 0.2)),
+    0 0 60px var(--card-accent, rgba(255, 60, 122, 0.15)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 2;
+}
+
+.adv-card:hover::before {
+  opacity: 1;
+}
+
+.adv-card:hover::after {
+  opacity: 1;
+}
+
+/* 光泽扫过 */
+.adv-card__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.8s var(--ease-out);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.adv-card:hover .adv-card__shine {
+  transform: translateX(100%);
+}
+
+/* 四角装饰 — 霓虹版 */
+.adv-card__corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-subtle);
+  transition:
+    border-color 0.25s ease-out,
+    width 0.25s ease-out,
+    height 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+}
+
+.adv-card__corner--tl { top: 16px; left: 16px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
+.adv-card__corner--tr { top: 16px; right: 16px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
+.adv-card__corner--bl { bottom: 16px; left: 16px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
+.adv-card__corner--br { bottom: 16px; right: 16px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
+
+.adv-card:hover .adv-card__corner {
+  border-color: var(--accent-secondary);
+  width: 22px;
+  height: 22px;
+  box-shadow: 0 0 8px rgba(255, 60, 122, 0.4);
+}
+
+/* 头部 */
+.adv-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.adv-card__head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.adv-card__num {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.adv-card__status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adv-card__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px currentColor;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.adv-card__status-text {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-tertiary);
+}
+
+.adv-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition:
+    background-color 0.25s ease-out,
+    transform 0.25s ease-out;
+  position: relative;
+}
+
+.adv-card__icon::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity var(--dur-normal) var(--ease-out);
+  box-shadow: 0 0 20px currentColor;
+}
+
+.adv-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.adv-card:hover .adv-card__icon {
+  background: var(--card-accent, rgba(255, 60, 122, 0.12));
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.adv-card:hover .adv-card__icon::after {
+  opacity: 0.3;
+}
+
+/* 主体 */
+.adv-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.adv-card__subtitle {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.adv-card__title {
+  font-family: var(--font-display-cn);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.adv-card__desc {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-top: 8px;
+}
+
+/* 能力值条形图 */
+.adv-card__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.adv-card__stat-row {
+  display: grid;
+  grid-template-columns: 64px 1fr 30px;
+  align-items: center;
+  gap: 10px;
+}
+
+.adv-card__stat-label {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.adv-card__stat-bar {
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.adv-card__stat-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.adv-card__stat-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  filter: blur(2px);
+}
+
+.adv-card__stat-value {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--card-accent, var(--text-secondary));
+  text-align: right;
+  text-shadow: 0 0 6px var(--card-accent, rgba(255, 60, 122, 0.5));
+}
+
+/* 底部 */
+.adv-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.adv-card__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+  transition:
+    background 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+}
+
+.adv-card:hover .adv-card__line {
+  box-shadow: 0 0 4px var(--card-accent, rgba(255, 60, 122, 0.4));
+}
+
+.adv-card__more {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text-tertiary);
+  transition:
+    color 0.25s ease-out,
+    text-shadow 0.25s ease-out;
+}
+
+.adv-card:hover .adv-card__more {
+  text-shadow: 0 0 8px currentColor;
+}
+
+@media (max-width: 1200px) {
+  .advantages__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .advantages__grid {
+    grid-template-columns: 1fr;
+  }
+}
